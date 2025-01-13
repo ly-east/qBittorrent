@@ -22,10 +22,18 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 include(FeatureSummary)
 include(FeatureOptionsSetup)
 
+list(APPEND CMAKE_PREFIX_PATH
+	"d:/work/boost_1_86_0"
+	"D:\\work\\bbdown\\third-party\\openssl"
+    "D:/qt/6.5.3/msvc2019_64/lib/cmake"
+    "D:\\work\\bbdown/third-party/zlib"
+    "D:\\work\\libtorrent-rasterbar\\build\\LibtorrentRasterbar"
+)
+
 # features, list is loosely sorted by user's interests
 feature_option(GUI "Build GUI application" ON)
-feature_option(WEBUI "Enable built-in HTTP server for remote control" ON)
-feature_option(QT6 "Build with Qt 6 instead of Qt 5" OFF)
+feature_option(WEBUI "Enable built-in HTTP server for remote control" OFF)
+feature_option(QT6 "Build with Qt 6 instead of Qt 5" ON)
 feature_option(STACKTRACE "Enable stacktrace support" ON)
 feature_option(TESTING "Build internal testing suite" OFF)
 feature_option(VERBOSE_CONFIGURE "Show information about PACKAGES_FOUND and PACKAGES_NOT_FOUND in the configure output (only useful for debugging the CMake build scripts)" OFF)
