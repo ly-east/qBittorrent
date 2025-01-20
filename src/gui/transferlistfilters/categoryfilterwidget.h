@@ -14,52 +14,53 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
 
 #include <QTreeView>
 
-class CategoryFilterWidget final : public QTreeView
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(CategoryFilterWidget)
+class CategoryFilterWidget final : public QTreeView {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(CategoryFilterWidget)
 
 public:
-    explicit CategoryFilterWidget(QWidget *parent = nullptr);
+  explicit CategoryFilterWidget(QWidget *parent = nullptr);
 
-    QString currentCategory() const;
+  QString currentCategory() const;
 
 signals:
-    void categoryChanged(const QString &categoryName);
-    void actionResumeTorrentsTriggered();
-    void actionPauseTorrentsTriggered();
-    void actionDeleteTorrentsTriggered();
+  void categoryChanged(const QString &categoryName);
+  void actionResumeTorrentsTriggered();
+  void actionPauseTorrentsTriggered();
+  void actionDeleteTorrentsTriggered();
 
 private slots:
-    void onCurrentRowChanged(const QModelIndex &current, const QModelIndex &previous);
-    void showMenu();
-    void callUpdateGeometry();
-    void addCategory();
-    void addSubcategory();
-    void editCategory();
-    void removeCategory();
-    void removeUnusedCategories();
+  void onCurrentRowChanged(const QModelIndex &current,
+                           const QModelIndex &previous);
+  void showMenu();
+  void callUpdateGeometry();
+  void addCategory();
+  void addSubcategory();
+  void editCategory();
+  void removeCategory();
+  void removeUnusedCategories();
 
 private:
-    QSize sizeHint() const override;
-    QSize minimumSizeHint() const override;
-    void rowsInserted(const QModelIndex &parent, int start, int end) override;
+  QSize sizeHint() const override;
+  QSize minimumSizeHint() const override;
+  void rowsInserted(const QModelIndex &parent, int start, int end) override;
 
-    int m_defaultIndentation;
+  int m_defaultIndentation;
 };

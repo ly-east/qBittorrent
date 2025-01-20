@@ -16,16 +16,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -43,47 +44,45 @@ class QTabWidget;
 class MainWindow;
 class SearchJobWidget;
 
-namespace Ui
-{
-    class SearchWidget;
+namespace Ui {
+class SearchWidget;
 }
 
-class SearchWidget : public QWidget, public GUIApplicationComponent
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(SearchWidget)
+class SearchWidget : public QWidget, public GUIApplicationComponent {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(SearchWidget)
 
 public:
-    explicit SearchWidget(IGUIApplication *app, MainWindow *mainWindow);
-    ~SearchWidget() override;
+  explicit SearchWidget(IGUIApplication *app, MainWindow *mainWindow);
+  ~SearchWidget() override;
 
-    void giveFocusToSearchInput();
+  void giveFocusToSearchInput();
 
 private slots:
-    void on_searchButton_clicked();
-    void on_pluginsButton_clicked();
+  void on_searchButton_clicked();
+  void on_pluginsButton_clicked();
 
 private:
-    bool eventFilter(QObject *object, QEvent *event) override;
-    void tabChanged(int index);
-    void closeTab(int index);
-    void closeAllTabs();
-    void tabStatusChanged(QWidget *tab);
-    void selectMultipleBox(int index);
-    void toggleFocusBetweenLineEdits();
+  bool eventFilter(QObject *object, QEvent *event) override;
+  void tabChanged(int index);
+  void closeTab(int index);
+  void closeAllTabs();
+  void tabStatusChanged(QWidget *tab);
+  void selectMultipleBox(int index);
+  void toggleFocusBetweenLineEdits();
 
-    void fillCatCombobox();
-    void fillPluginComboBox();
-    void selectActivePage();
-    void searchTextEdited(const QString &);
+  void fillCatCombobox();
+  void fillPluginComboBox();
+  void selectActivePage();
+  void searchTextEdited(const QString &);
 
-    QString selectedCategory() const;
-    QString selectedPlugin() const;
+  QString selectedCategory() const;
+  QString selectedPlugin() const;
 
-    Ui::SearchWidget *m_ui = nullptr;
-    QPointer<SearchJobWidget> m_currentSearchTab; // Selected tab
-    QPointer<SearchJobWidget> m_activeSearchTab; // Tab with running search
-    QList<SearchJobWidget *> m_allTabs; // To store all tabs
-    MainWindow *m_mainWindow = nullptr;
-    bool m_isNewQueryString = false;
+  Ui::SearchWidget *m_ui = nullptr;
+  QPointer<SearchJobWidget> m_currentSearchTab; // Selected tab
+  QPointer<SearchJobWidget> m_activeSearchTab;  // Tab with running search
+  QList<SearchJobWidget *> m_allTabs;           // To store all tabs
+  MainWindow *m_mainWindow = nullptr;
+  bool m_isNewQueryString = false;
 };

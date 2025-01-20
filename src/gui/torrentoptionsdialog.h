@@ -16,16 +16,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -37,67 +38,64 @@
 
 class QAbstractButton;
 
-namespace BitTorrent
-{
-    class Torrent;
-    class TorrentID;
+namespace BitTorrent {
+class Torrent;
+class TorrentID;
+} // namespace BitTorrent
+
+namespace Ui {
+class TorrentOptionsDialog;
 }
 
-namespace Ui
-{
-    class TorrentOptionsDialog;
-}
-
-class TorrentOptionsDialog final : public QDialog
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(TorrentOptionsDialog)
+class TorrentOptionsDialog final : public QDialog {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(TorrentOptionsDialog)
 
 public:
-    explicit TorrentOptionsDialog(QWidget *parent, const QVector<BitTorrent::Torrent *> &torrents);
-    ~TorrentOptionsDialog() override;
+  explicit TorrentOptionsDialog(QWidget *parent,
+                                const QVector<BitTorrent::Torrent *> &torrents);
+  ~TorrentOptionsDialog() override;
 
 public slots:
-    void accept() override;
+  void accept() override;
 
 private slots:
-    void handleCategoryChanged(int index);
-    void handleTMMChanged();
-    void handleUseDownloadPathChanged();
+  void handleCategoryChanged(int index);
+  void handleTMMChanged();
+  void handleUseDownloadPathChanged();
 
-    void handleUpSpeedLimitChanged();
-    void handleDownSpeedLimitChanged();
+  void handleUpSpeedLimitChanged();
+  void handleDownSpeedLimitChanged();
 
-    void handleRatioTypeChanged();
+  void handleRatioTypeChanged();
 
 private:
-    qreal getRatio() const;
-    int getSeedingTime() const;
-    int getInactiveSeedingTime() const;
+  qreal getRatio() const;
+  int getSeedingTime() const;
+  int getInactiveSeedingTime() const;
 
-    QVector<BitTorrent::TorrentID> m_torrentIDs;
-    Ui::TorrentOptionsDialog *m_ui = nullptr;
-    SettingValue<QSize> m_storeDialogSize;
-    QStringList m_categories;
-    QString m_currentCategoriesString;
-    bool m_allSameCategory = true;
-    QAbstractButton *m_previousRadio = nullptr;
-    struct
-    {
-        Path savePath;
-        Path downloadPath;
-        QString category;
-        qreal ratio;
-        int seedingTime;
-        int inactiveSeedingTime;
-        int upSpeedLimit;
-        int downSpeedLimit;
-        Qt::CheckState autoTMM;
-        Qt::CheckState useDownloadPath;
-        Qt::CheckState disableDHT;
-        Qt::CheckState disablePEX;
-        Qt::CheckState disableLSD;
-        Qt::CheckState sequential;
-        Qt::CheckState firstLastPieces;
-    } m_initialValues;
+  QVector<BitTorrent::TorrentID> m_torrentIDs;
+  Ui::TorrentOptionsDialog *m_ui = nullptr;
+  SettingValue<QSize> m_storeDialogSize;
+  QStringList m_categories;
+  QString m_currentCategoriesString;
+  bool m_allSameCategory = true;
+  QAbstractButton *m_previousRadio = nullptr;
+  struct {
+    Path savePath;
+    Path downloadPath;
+    QString category;
+    qreal ratio;
+    int seedingTime;
+    int inactiveSeedingTime;
+    int upSpeedLimit;
+    int downSpeedLimit;
+    Qt::CheckState autoTMM;
+    Qt::CheckState useDownloadPath;
+    Qt::CheckState disableDHT;
+    Qt::CheckState disablePEX;
+    Qt::CheckState disableLSD;
+    Qt::CheckState sequential;
+    Qt::CheckState firstLastPieces;
+  } m_initialValues;
 };

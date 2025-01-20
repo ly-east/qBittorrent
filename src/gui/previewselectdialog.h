@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -34,53 +35,49 @@
 #include "base/path.h"
 #include "base/settingvalue.h"
 
-namespace BitTorrent
-{
-    class Torrent;
+namespace BitTorrent {
+class Torrent;
 }
 
-namespace Ui
-{
-    class PreviewSelectDialog;
+namespace Ui {
+class PreviewSelectDialog;
 }
 
-class PreviewSelectDialog final : public QDialog
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(PreviewSelectDialog)
+class PreviewSelectDialog final : public QDialog {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(PreviewSelectDialog)
 
 public:
-    enum PreviewColumn
-    {
-        NAME,
-        SIZE,
-        PROGRESS,
-        FILE_INDEX,
+  enum PreviewColumn {
+    NAME,
+    SIZE,
+    PROGRESS,
+    FILE_INDEX,
 
-        NB_COLUMNS
-    };
+    NB_COLUMNS
+  };
 
-    PreviewSelectDialog(QWidget *parent, const BitTorrent::Torrent *torrent);
-    ~PreviewSelectDialog();
+  PreviewSelectDialog(QWidget *parent, const BitTorrent::Torrent *torrent);
+  ~PreviewSelectDialog();
 
 signals:
-    void readyToPreviewFile(const Path &filePath) const;
+  void readyToPreviewFile(const Path &filePath) const;
 
 private slots:
-    void previewButtonClicked();
-    void displayColumnHeaderMenu();
+  void previewButtonClicked();
+  void displayColumnHeaderMenu();
 
 private:
-    void showEvent(QShowEvent *event) override;
+  void showEvent(QShowEvent *event) override;
 
-    void loadWindowState();
-    void saveWindowState();
+  void loadWindowState();
+  void saveWindowState();
 
-    Ui::PreviewSelectDialog *m_ui = nullptr;
-    const BitTorrent::Torrent *m_torrent = nullptr;
-    bool m_headerStateInitialized = false;
+  Ui::PreviewSelectDialog *m_ui = nullptr;
+  const BitTorrent::Torrent *m_torrent = nullptr;
+  bool m_headerStateInitialized = false;
 
-    // Settings
-    SettingValue<QSize> m_storeDialogSize;
-    SettingValue<QByteArray> m_storeTreeHeaderState;
+  // Settings
+  SettingValue<QSize> m_storeDialogSize;
+  SettingValue<QByteArray> m_storeTreeHeaderState;
 };

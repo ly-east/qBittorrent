@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -47,98 +48,87 @@ struct SearchResult;
 
 template <typename T> class SettingValue;
 
-namespace Ui
-{
-    class SearchJobWidget;
+namespace Ui {
+class SearchJobWidget;
 }
 
-class SearchJobWidget final : public QWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(SearchJobWidget)
+class SearchJobWidget final : public QWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(SearchJobWidget)
 
 public:
-    enum class NameFilteringMode
-    {
-        Everywhere,
-        OnlyNames
-    };
-    Q_ENUM(NameFilteringMode)
+  enum class NameFilteringMode { Everywhere, OnlyNames };
+  Q_ENUM(NameFilteringMode)
 
-    enum class Status
-    {
-        Ongoing,
-        Finished,
-        Error,
-        Aborted,
-        NoResults
-    };
+  enum class Status { Ongoing, Finished, Error, Aborted, NoResults };
 
-    explicit SearchJobWidget(SearchHandler *searchHandler, QWidget *parent = nullptr);
-    ~SearchJobWidget() override;
+  explicit SearchJobWidget(SearchHandler *searchHandler,
+                           QWidget *parent = nullptr);
+  ~SearchJobWidget() override;
 
-    Status status() const;
-    int visibleResultsCount() const;
-    LineEdit *lineEditSearchResultsFilter() const;
+  Status status() const;
+  int visibleResultsCount() const;
+  LineEdit *lineEditSearchResultsFilter() const;
 
-    void cancelSearch();
+  void cancelSearch();
 
 signals:
-    void resultsCountUpdated();
-    void statusChanged();
+  void resultsCountUpdated();
+  void statusChanged();
 
 protected:
-    void keyPressEvent(QKeyEvent *event) override;
+  void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
-    void displayColumnHeaderMenu();
+  void displayColumnHeaderMenu();
 
 private:
-    enum class AddTorrentOption
-    {
-        Default,
-        ShowDialog,
-        SkipDialog,
-    };
+  enum class AddTorrentOption {
+    Default,
+    ShowDialog,
+    SkipDialog,
+  };
 
-    void loadSettings();
-    void saveSettings() const;
-    void updateFilter();
-    void filterSearchResults(const QString &name);
-    void showFilterContextMenu();
-    void contextMenuEvent(QContextMenuEvent *event) override;
-    void onItemDoubleClicked(const QModelIndex &index);
-    void searchFinished(bool cancelled);
-    void searchFailed();
-    void appendSearchResults(const QVector<SearchResult> &results);
-    void updateResultsCount();
-    void setStatus(Status value);
-    void downloadTorrent(const QModelIndex &rowIndex, AddTorrentOption option = AddTorrentOption::Default);
-    void addTorrentToSession(const QString &source, AddTorrentOption option = AddTorrentOption::Default);
-    void fillFilterComboBoxes();
-    NameFilteringMode filteringMode() const;
-    QHeaderView *header() const;
-    void setRowColor(int row, const QColor &color);
-    int visibleColumnsCount() const;
+  void loadSettings();
+  void saveSettings() const;
+  void updateFilter();
+  void filterSearchResults(const QString &name);
+  void showFilterContextMenu();
+  void contextMenuEvent(QContextMenuEvent *event) override;
+  void onItemDoubleClicked(const QModelIndex &index);
+  void searchFinished(bool cancelled);
+  void searchFailed();
+  void appendSearchResults(const QVector<SearchResult> &results);
+  void updateResultsCount();
+  void setStatus(Status value);
+  void downloadTorrent(const QModelIndex &rowIndex,
+                       AddTorrentOption option = AddTorrentOption::Default);
+  void addTorrentToSession(const QString &source,
+                           AddTorrentOption option = AddTorrentOption::Default);
+  void fillFilterComboBoxes();
+  NameFilteringMode filteringMode() const;
+  QHeaderView *header() const;
+  void setRowColor(int row, const QColor &color);
+  int visibleColumnsCount() const;
 
-    void downloadTorrents(AddTorrentOption option = AddTorrentOption::Default);
-    void openTorrentPages() const;
-    void copyTorrentURLs() const;
-    void copyTorrentDownloadLinks() const;
-    void copyTorrentNames() const;
-    void copyField(int column) const;
+  void downloadTorrents(AddTorrentOption option = AddTorrentOption::Default);
+  void openTorrentPages() const;
+  void copyTorrentURLs() const;
+  void copyTorrentDownloadLinks() const;
+  void copyTorrentNames() const;
+  void copyField(int column) const;
 
-    static QString statusText(Status st);
+  static QString statusText(Status st);
 
-    Ui::SearchJobWidget *m_ui = nullptr;
-    SearchHandler *m_searchHandler = nullptr;
-    QStandardItemModel *m_searchListModel = nullptr;
-    SearchSortModel *m_proxyModel = nullptr;
-    LineEdit *m_lineEditSearchResultsFilter = nullptr;
-    Status m_status = Status::Ongoing;
-    bool m_noSearchResults = true;
+  Ui::SearchJobWidget *m_ui = nullptr;
+  SearchHandler *m_searchHandler = nullptr;
+  QStandardItemModel *m_searchListModel = nullptr;
+  SearchSortModel *m_proxyModel = nullptr;
+  LineEdit *m_lineEditSearchResultsFilter = nullptr;
+  Status m_status = Status::Ongoing;
+  bool m_noSearchResults = true;
 
-    SettingValue<NameFilteringMode> m_nameFilteringMode;
+  SettingValue<NameFilteringMode> m_nameFilteringMode;
 };
 
 Q_DECLARE_METATYPE(SearchJobWidget::NameFilteringMode)

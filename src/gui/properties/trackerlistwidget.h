@@ -14,16 +14,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -33,67 +34,64 @@
 
 class PropertiesWidget;
 
-namespace BitTorrent
-{
-    class Torrent;
+namespace BitTorrent {
+class Torrent;
 }
 
-class TrackerListWidget : public QTreeWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(TrackerListWidget)
+class TrackerListWidget : public QTreeWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(TrackerListWidget)
 
 public:
-    enum TrackerListColumn
-    {
-        COL_TIER,
-        COL_URL,
-        COL_STATUS,
-        COL_PEERS,
-        COL_SEEDS,
-        COL_LEECHES,
-        COL_TIMES_DOWNLOADED,
-        COL_MSG,
+  enum TrackerListColumn {
+    COL_TIER,
+    COL_URL,
+    COL_STATUS,
+    COL_PEERS,
+    COL_SEEDS,
+    COL_LEECHES,
+    COL_TIMES_DOWNLOADED,
+    COL_MSG,
 
-        COL_COUNT
-    };
+    COL_COUNT
+  };
 
-    explicit TrackerListWidget(PropertiesWidget *properties);
-    ~TrackerListWidget();
+  explicit TrackerListWidget(PropertiesWidget *properties);
+  ~TrackerListWidget();
 
 public slots:
-    void setRowColor(int row, const QColor &color);
+  void setRowColor(int row, const QColor &color);
 
-    void moveSelectionUp();
-    void moveSelectionDown();
+  void moveSelectionUp();
+  void moveSelectionDown();
 
-    void clear();
-    void loadStickyItems(const BitTorrent::Torrent *torrent);
-    void loadTrackers();
-    void copyTrackerUrl();
-    void reannounceSelected();
-    void deleteSelectedTrackers();
-    void editSelectedTracker();
-    void showTrackerListMenu();
-    void loadSettings();
-    void saveSettings() const;
+  void clear();
+  void loadStickyItems(const BitTorrent::Torrent *torrent);
+  void loadTrackers();
+  void copyTrackerUrl();
+  void reannounceSelected();
+  void deleteSelectedTrackers();
+  void editSelectedTracker();
+  void showTrackerListMenu();
+  void loadSettings();
+  void saveSettings() const;
 
 protected:
-    QVector<QTreeWidgetItem *> getSelectedTrackerItems() const;
+  QVector<QTreeWidgetItem *> getSelectedTrackerItems() const;
 
 private slots:
-    void openAddTrackersDialog();
-    void displayColumnHeaderMenu();
+  void openAddTrackersDialog();
+  void displayColumnHeaderMenu();
 
 private:
-    int visibleColumnsCount() const;
-    void wheelEvent(QWheelEvent *event) override;
+  int visibleColumnsCount() const;
+  void wheelEvent(QWheelEvent *event) override;
 
-    static QStringList headerLabels();
+  static QStringList headerLabels();
 
-    PropertiesWidget *m_properties = nullptr;
-    QHash<QString, QTreeWidgetItem *> m_trackerItems;
-    QTreeWidgetItem *m_DHTItem = nullptr;
-    QTreeWidgetItem *m_PEXItem = nullptr;
-    QTreeWidgetItem *m_LSDItem = nullptr;
+  PropertiesWidget *m_properties = nullptr;
+  QHash<QString, QTreeWidgetItem *> m_trackerItems;
+  QTreeWidgetItem *m_DHTItem = nullptr;
+  QTreeWidgetItem *m_PEXItem = nullptr;
+  QTreeWidgetItem *m_LSDItem = nullptr;
 };

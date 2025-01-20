@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -35,67 +36,66 @@
 
 class QHelpEvent;
 
-namespace BitTorrent
-{
-    class Torrent;
+namespace BitTorrent {
+class Torrent;
 }
 
-class PiecesBar : public QWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(PiecesBar)
+class PiecesBar : public QWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(PiecesBar)
 
-    using base = QWidget;
+  using base = QWidget;
 
 public:
-    explicit PiecesBar(QWidget *parent = nullptr);
+  explicit PiecesBar(QWidget *parent = nullptr);
 
-    void setTorrent(const BitTorrent::Torrent *torrent);
+  void setTorrent(const BitTorrent::Torrent *torrent);
 
-    virtual void clear();
+  virtual void clear();
 
-    // QObject interface
-    bool event(QEvent *e) override;
+  // QObject interface
+  bool event(QEvent *e) override;
 
 protected:
-    // QWidget interface
+  // QWidget interface
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-    void enterEvent(QEnterEvent *e) override;
+  void enterEvent(QEnterEvent *e) override;
 #else
-    void enterEvent(QEvent *e) override;
+  void enterEvent(QEvent *e) override;
 #endif
-    void leaveEvent(QEvent *e) override;
-    void mouseMoveEvent(QMouseEvent *e) override;
+  void leaveEvent(QEvent *e) override;
+  void mouseMoveEvent(QMouseEvent *e) override;
 
-    void paintEvent(QPaintEvent *e) override;
-    void requestImageUpdate();
+  void paintEvent(QPaintEvent *e) override;
+  void requestImageUpdate();
 
-    QColor backgroundColor() const;
-    QColor borderColor() const;
-    QColor pieceColor() const;
-    QColor colorBoxBorderColor() const;
-    const QVector<QRgb> &pieceColors() const;
+  QColor backgroundColor() const;
+  QColor borderColor() const;
+  QColor pieceColor() const;
+  QColor colorBoxBorderColor() const;
+  const QVector<QRgb> &pieceColors() const;
 
-    // mix two colors by light model, ratio <0, 1>
-    static QRgb mixTwoColors(QRgb rgb1, QRgb rgb2, float ratio);
+  // mix two colors by light model, ratio <0, 1>
+  static QRgb mixTwoColors(QRgb rgb1, QRgb rgb2, float ratio);
 
-    static constexpr int borderWidth = 1;
+  static constexpr int borderWidth = 1;
 
 private:
-    void showToolTip(const QHelpEvent*);
-    void highlightFile(int imagePos);
+  void showToolTip(const QHelpEvent *);
+  void highlightFile(int imagePos);
 
-    virtual QString simpleToolTipText() const = 0;
+  virtual QString simpleToolTipText() const = 0;
 
-    // draw new image to replace the actual image
-    // returns true if image was successfully updated
-    virtual bool updateImage(QImage &image) = 0;
-    void updatePieceColors();
+  // draw new image to replace the actual image
+  // returns true if image was successfully updated
+  virtual bool updateImage(QImage &image) = 0;
+  void updatePieceColors();
 
-    const BitTorrent::Torrent *m_torrent = nullptr;
-    QImage m_image;
-    // buffered 256 levels gradient from bg_color to piece_color
-    QVector<QRgb> m_pieceColors;
-    bool m_hovered = false;
-    QRect m_highlightedRegion; // part of the bar can be highlighted; this rectangle is in the same frame as m_image
+  const BitTorrent::Torrent *m_torrent = nullptr;
+  QImage m_image;
+  // buffered 256 levels gradient from bg_color to piece_color
+  QVector<QRgb> m_pieceColors;
+  bool m_hovered = false;
+  QRect m_highlightedRegion; // part of the bar can be highlighted; this
+                             // rectangle is in the same frame as m_image
 };

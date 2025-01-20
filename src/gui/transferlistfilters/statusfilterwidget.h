@@ -15,67 +15,70 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
 
 #include <bitset>
 
-#include <QtContainerFwd>
 #include <QHash>
+#include <QtContainerFwd>
 
 #include "base/torrentfilter.h"
 #include "basefilterwidget.h"
 
-class StatusFilterWidget final : public BaseFilterWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(StatusFilterWidget)
+class StatusFilterWidget final : public BaseFilterWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(StatusFilterWidget)
 
 public:
-    StatusFilterWidget(QWidget *parent, TransferListWidget *transferList);
-    ~StatusFilterWidget() override;
+  StatusFilterWidget(QWidget *parent, TransferListWidget *transferList);
+  ~StatusFilterWidget() override;
 
 private:
-    QSize sizeHint() const override;
+  QSize sizeHint() const override;
 
-    // These 4 methods are virtual slots in the base class.
-    // No need to redeclare them here as slots.
-    void showMenu() override;
-    void applyFilter(int row) override;
-    void handleTorrentsLoaded(const QVector<BitTorrent::Torrent *> &torrents) override;
-    void torrentAboutToBeDeleted(BitTorrent::Torrent *) override;
+  // These 4 methods are virtual slots in the base class.
+  // No need to redeclare them here as slots.
+  void showMenu() override;
+  void applyFilter(int row) override;
+  void
+  handleTorrentsLoaded(const QVector<BitTorrent::Torrent *> &torrents) override;
+  void torrentAboutToBeDeleted(BitTorrent::Torrent *) override;
 
-    void configure();
+  void configure();
 
-    void update(const QVector<BitTorrent::Torrent *> &torrents);
-    void updateTorrentStatus(const BitTorrent::Torrent *torrent);
-    void updateTexts();
-    void hideZeroItems();
+  void update(const QVector<BitTorrent::Torrent *> &torrents);
+  void updateTorrentStatus(const BitTorrent::Torrent *torrent);
+  void updateTexts();
+  void hideZeroItems();
 
-    using TorrentFilterBitset = std::bitset<32>;  // approximated size, this should be the number of TorrentFilter::Type elements
-    QHash<const BitTorrent::Torrent *, TorrentFilterBitset> m_torrentsStatus;
-    int m_nbDownloading = 0;
-    int m_nbSeeding = 0;
-    int m_nbCompleted = 0;
-    int m_nbResumed = 0;
-    int m_nbPaused = 0;
-    int m_nbActive = 0;
-    int m_nbInactive = 0;
-    int m_nbStalled = 0;
-    int m_nbStalledUploading = 0;
-    int m_nbStalledDownloading = 0;
-    int m_nbChecking = 0;
-    int m_nbMoving = 0;
-    int m_nbErrored = 0;
+  using TorrentFilterBitset =
+      std::bitset<32>; // approximated size, this should be the number of
+                       // TorrentFilter::Type elements
+  QHash<const BitTorrent::Torrent *, TorrentFilterBitset> m_torrentsStatus;
+  int m_nbDownloading = 0;
+  int m_nbSeeding = 0;
+  int m_nbCompleted = 0;
+  int m_nbResumed = 0;
+  int m_nbPaused = 0;
+  int m_nbActive = 0;
+  int m_nbInactive = 0;
+  int m_nbStalled = 0;
+  int m_nbStalledUploading = 0;
+  int m_nbStalledDownloading = 0;
+  int m_nbChecking = 0;
+  int m_nbMoving = 0;
+  int m_nbErrored = 0;
 };

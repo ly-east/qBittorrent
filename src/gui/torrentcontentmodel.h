@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -42,59 +43,60 @@ class QVariant;
 
 class TorrentContentModelFile;
 
-namespace BitTorrent
-{
-    class TorrentContentHandler;
+namespace BitTorrent {
+class TorrentContentHandler;
 }
 
-class TorrentContentModel final : public QAbstractItemModel
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(TorrentContentModel)
+class TorrentContentModel final : public QAbstractItemModel {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(TorrentContentModel)
 
 public:
-    enum Roles
-    {
-        UnderlyingDataRole = Qt::UserRole
-    };
+  enum Roles { UnderlyingDataRole = Qt::UserRole };
 
-    explicit TorrentContentModel(QObject *parent = nullptr);
-    ~TorrentContentModel() override;
+  explicit TorrentContentModel(QObject *parent = nullptr);
+  ~TorrentContentModel() override;
 
-    void setContentHandler(BitTorrent::TorrentContentHandler *contentHandler);
-    BitTorrent::TorrentContentHandler *contentHandler() const;
+  void setContentHandler(BitTorrent::TorrentContentHandler *contentHandler);
+  BitTorrent::TorrentContentHandler *contentHandler() const;
 
-    void refresh();
+  void refresh();
 
-    QVector<BitTorrent::DownloadPriority> getFilePriorities() const;
-    TorrentContentModelItem::ItemType itemType(const QModelIndex &index) const;
-    int getFileIndex(const QModelIndex &index) const;
-    Path getItemPath(const QModelIndex &index) const;
+  QVector<BitTorrent::DownloadPriority> getFilePriorities() const;
+  TorrentContentModelItem::ItemType itemType(const QModelIndex &index) const;
+  int getFileIndex(const QModelIndex &index) const;
+  Path getItemPath(const QModelIndex &index) const;
 
-    int columnCount(const QModelIndex &parent = {}) const override;
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
-    QModelIndex index(int row, int column, const QModelIndex &parent = {}) const override;
-    QModelIndex parent(const QModelIndex &index) const override;
-    int rowCount(const QModelIndex &parent = {}) const override;
+  int columnCount(const QModelIndex &parent = {}) const override;
+  bool setData(const QModelIndex &index, const QVariant &value,
+               int role = Qt::EditRole) override;
+  QVariant data(const QModelIndex &index,
+                int role = Qt::DisplayRole) const override;
+  Qt::ItemFlags flags(const QModelIndex &index) const override;
+  QVariant headerData(int section, Qt::Orientation orientation,
+                      int role) const override;
+  QModelIndex index(int row, int column,
+                    const QModelIndex &parent = {}) const override;
+  QModelIndex parent(const QModelIndex &index) const override;
+  int rowCount(const QModelIndex &parent = {}) const override;
 
 signals:
-    void renameFailed(const QString &errorMessage);
+  void renameFailed(const QString &errorMessage);
 
 private:
-    using ColumnInterval = IndexInterval<int>;
+  using ColumnInterval = IndexInterval<int>;
 
-    void populate();
-    void updateFilesProgress();
-    void updateFilesPriorities();
-    void updateFilesAvailability();
-    bool setItemPriority(const QModelIndex &index, BitTorrent::DownloadPriority priority);
-    void notifySubtreeUpdated(const QModelIndex &index, const QVector<ColumnInterval> &columns);
+  void populate();
+  void updateFilesProgress();
+  void updateFilesPriorities();
+  void updateFilesAvailability();
+  bool setItemPriority(const QModelIndex &index,
+                       BitTorrent::DownloadPriority priority);
+  void notifySubtreeUpdated(const QModelIndex &index,
+                            const QVector<ColumnInterval> &columns);
 
-    BitTorrent::TorrentContentHandler *m_contentHandler = nullptr;
-    TorrentContentModelFolder *m_rootItem = nullptr;
-    QVector<TorrentContentModelFile *> m_filesIndex;
-    QFileIconProvider *m_fileIconProvider = nullptr;
+  BitTorrent::TorrentContentHandler *m_contentHandler = nullptr;
+  TorrentContentModelFolder *m_rootItem = nullptr;
+  QVector<TorrentContentModelFile *> m_filesIndex;
+  QFileIconProvider *m_fileIconProvider = nullptr;
 };

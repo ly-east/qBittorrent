@@ -16,16 +16,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -38,52 +39,51 @@ class QTreeWidgetItem;
 class ArticleListWidget;
 class FeedListWidget;
 
-namespace Ui
-{
-    class RSSWidget;
+namespace Ui {
+class RSSWidget;
 }
 
-class RSSWidget : public QWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(RSSWidget)
+class RSSWidget : public QWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(RSSWidget)
 
 public:
-    RSSWidget(QWidget *parent);
-    ~RSSWidget();
+  RSSWidget(QWidget *parent);
+  ~RSSWidget();
 
 public slots:
-    void deleteSelectedItems();
-    void updateRefreshInterval(int val) const;
+  void deleteSelectedItems();
+  void updateRefreshInterval(int val) const;
 
 signals:
-    void unreadCountUpdated(int count);
+  void unreadCountUpdated(int count);
 
 private slots:
-    void on_newFeedButton_clicked();
-    void refreshAllFeeds();
-    void on_markReadButton_clicked();
-    void displayRSSListMenu(const QPoint &pos);
-    void displayItemsListMenu();
-    void renameSelectedRSSItem();
-    void editSelectedRSSFeedURL();
-    void refreshSelectedItems();
-    void copySelectedFeedsURL();
-    void handleCurrentFeedItemChanged(QTreeWidgetItem *currentItem);
-    void handleCurrentArticleItemChanged(QListWidgetItem *currentItem, QListWidgetItem *previousItem);
-    void openSelectedArticlesUrls();
-    void downloadSelectedTorrents();
-    void saveSlidersPosition();
-    void restoreSlidersPosition();
-    void askNewFolder();
-    void saveFoldersOpenState();
-    void loadFoldersOpenState();
-    void on_rssDownloaderBtn_clicked();
-    void handleSessionProcessingStateChanged(bool enabled);
-    void handleUnreadCountChanged();
+  void on_newFeedButton_clicked();
+  void refreshAllFeeds();
+  void on_markReadButton_clicked();
+  void displayRSSListMenu(const QPoint &pos);
+  void displayItemsListMenu();
+  void renameSelectedRSSItem();
+  void editSelectedRSSFeedURL();
+  void refreshSelectedItems();
+  void copySelectedFeedsURL();
+  void handleCurrentFeedItemChanged(QTreeWidgetItem *currentItem);
+  void handleCurrentArticleItemChanged(QListWidgetItem *currentItem,
+                                       QListWidgetItem *previousItem);
+  void openSelectedArticlesUrls();
+  void downloadSelectedTorrents();
+  void saveSlidersPosition();
+  void restoreSlidersPosition();
+  void askNewFolder();
+  void saveFoldersOpenState();
+  void loadFoldersOpenState();
+  void on_rssDownloaderBtn_clicked();
+  void handleSessionProcessingStateChanged(bool enabled);
+  void handleUnreadCountChanged();
 
 private:
-    Ui::RSSWidget *m_ui = nullptr;
-    ArticleListWidget *m_articleListWidget = nullptr;
-    FeedListWidget *m_feedListWidget = nullptr;
+  Ui::RSSWidget *m_ui = nullptr;
+  ArticleListWidget *m_articleListWidget = nullptr;
+  FeedListWidget *m_feedListWidget = nullptr;
 };

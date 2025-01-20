@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -34,23 +35,22 @@
 
 class DBusNotificationsInterface;
 
-class DBusNotifier final : public QObject
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(DBusNotifier)
+class DBusNotifier final : public QObject {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(DBusNotifier)
 
 public:
-    explicit DBusNotifier(QObject *parent = nullptr);
+  explicit DBusNotifier(QObject *parent = nullptr);
 
-    void showMessage(const QString &title, const QString &message, int timeout);
+  void showMessage(const QString &title, const QString &message, int timeout);
 
 signals:
-    void messageClicked();
+  void messageClicked();
 
 private:
-    void onActionInvoked(uint messageID, const QString &action);
-    void onNotificationClosed(uint messageID, uint reason);
+  void onActionInvoked(uint messageID, const QString &action);
+  void onNotificationClosed(uint messageID, uint reason);
 
-    DBusNotificationsInterface *m_notificationsInterface = nullptr;
-    QSet<uint> m_activeMessages;
+  DBusNotificationsInterface *m_notificationsInterface = nullptr;
+  QSet<uint> m_activeMessages;
 };

@@ -15,16 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
@@ -44,74 +45,67 @@ class PieceAvailabilityBar;
 class PropTabBar;
 class TrackerListWidget;
 
-namespace BitTorrent
-{
-    class Torrent;
+namespace BitTorrent {
+class Torrent;
 }
 
-namespace Ui
-{
-    class PropertiesWidget;
+namespace Ui {
+class PropertiesWidget;
 }
 
-class PropertiesWidget : public QWidget
-{
-    Q_OBJECT
-    Q_DISABLE_COPY_MOVE(PropertiesWidget)
+class PropertiesWidget : public QWidget {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(PropertiesWidget)
 
 public:
-    enum SlideState
-    {
-        REDUCED,
-        VISIBLE
-    };
+  enum SlideState { REDUCED, VISIBLE };
 
-    explicit PropertiesWidget(QWidget *parent);
-    ~PropertiesWidget() override;
+  explicit PropertiesWidget(QWidget *parent);
+  ~PropertiesWidget() override;
 
-    BitTorrent::Torrent *getCurrentTorrent() const;
-    TrackerListWidget *getTrackerList() const;
-    PeerListWidget *getPeerList() const;
-    QTreeView *getFilesList() const;
+  BitTorrent::Torrent *getCurrentTorrent() const;
+  TrackerListWidget *getTrackerList() const;
+  PeerListWidget *getPeerList() const;
+  QTreeView *getFilesList() const;
 
 public slots:
-    void setVisibility(bool visible);
-    void loadTorrentInfos(BitTorrent::Torrent *torrent);
-    void loadDynamicData();
-    void clear();
-    void readSettings();
-    void saveSettings();
-    void reloadPreferences();
-    void loadTrackers(BitTorrent::Torrent *torrent);
+  void setVisibility(bool visible);
+  void loadTorrentInfos(BitTorrent::Torrent *torrent);
+  void loadDynamicData();
+  void clear();
+  void readSettings();
+  void saveSettings();
+  void reloadPreferences();
+  void loadTrackers(BitTorrent::Torrent *torrent);
 
 protected slots:
-    void updateTorrentInfos(BitTorrent::Torrent *torrent);
-    void loadUrlSeeds();
-    void askWebSeed();
-    void deleteSelectedUrlSeeds();
-    void copySelectedWebSeedsToClipboard() const;
-    void editWebSeed();
-    void displayWebSeedListMenu();
-    void showPiecesDownloaded(bool show);
-    void showPiecesAvailability(bool show);
+  void updateTorrentInfos(BitTorrent::Torrent *torrent);
+  void loadUrlSeeds();
+  void askWebSeed();
+  void deleteSelectedUrlSeeds();
+  void copySelectedWebSeedsToClipboard() const;
+  void editWebSeed();
+  void displayWebSeedListMenu();
+  void showPiecesDownloaded(bool show);
+  void showPiecesAvailability(bool show);
 
 private slots:
-    void configure();
-    void updateSavePath(BitTorrent::Torrent *torrent);
+  void configure();
+  void updateSavePath(BitTorrent::Torrent *torrent);
 
 private:
-    QPushButton *getButtonFromIndex(int index);
+  QPushButton *getButtonFromIndex(int index);
 
-    Ui::PropertiesWidget *m_ui = nullptr;
-    BitTorrent::Torrent *m_torrent = nullptr;
-    SlideState m_state;
-    PeerListWidget *m_peerList = nullptr;
-    TrackerListWidget *m_trackerList = nullptr;
-    QWidget *m_speedWidget = nullptr;
-    QList<int> m_slideSizes;
-    DownloadedPiecesBar *m_downloadedPieces = nullptr;
-    PieceAvailabilityBar *m_piecesAvailability = nullptr;
-    PropTabBar *m_tabBar = nullptr;
-    LineEdit *m_contentFilterLine = nullptr;
-    int m_handleWidth = -1;
+  Ui::PropertiesWidget *m_ui = nullptr;
+  BitTorrent::Torrent *m_torrent = nullptr;
+  SlideState m_state;
+  PeerListWidget *m_peerList = nullptr;
+  TrackerListWidget *m_trackerList = nullptr;
+  QWidget *m_speedWidget = nullptr;
+  QList<int> m_slideSizes;
+  DownloadedPiecesBar *m_downloadedPieces = nullptr;
+  PieceAvailabilityBar *m_piecesAvailability = nullptr;
+  PropTabBar *m_tabBar = nullptr;
+  LineEdit *m_contentFilterLine = nullptr;
+  int m_handleWidth = -1;
 };

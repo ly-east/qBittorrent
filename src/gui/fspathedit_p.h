@@ -15,24 +15,25 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #pragma once
 
 #include <QComboBox>
 #include <QLineEdit>
-#include <QtContainerFwd>
 #include <QValidator>
+#include <QtContainerFwd>
 
 #include "base/pathfwd.h"
 
@@ -42,128 +43,122 @@ class QFileIconProvider;
 class QFileSystemModel;
 class QKeyEvent;
 
-namespace Private
-{
-    class FileSystemPathValidator final : public QValidator
-    {
-        Q_OBJECT
-        Q_DISABLE_COPY_MOVE(FileSystemPathValidator)
+namespace Private {
+class FileSystemPathValidator final : public QValidator {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(FileSystemPathValidator)
 
-    public:
-        enum class TestResult
-        {
-            OK,
-            DoesNotExist,
-            NotADir,
-            NotAFile,
-            CantRead,
-            CantWrite
-        };
+public:
+  enum class TestResult {
+    OK,
+    DoesNotExist,
+    NotADir,
+    NotAFile,
+    CantRead,
+    CantWrite
+  };
 
-        FileSystemPathValidator(QObject *parent = nullptr);
+  FileSystemPathValidator(QObject *parent = nullptr);
 
-        bool strictMode() const;
-        void setStrictMode(bool value);
+  bool strictMode() const;
+  void setStrictMode(bool value);
 
-        bool existingOnly() const;
-        void setExistingOnly(bool value);
+  bool existingOnly() const;
+  void setExistingOnly(bool value);
 
-        bool filesOnly() const;
-        void setFilesOnly(bool value);
+  bool filesOnly() const;
+  void setFilesOnly(bool value);
 
-        bool directoriesOnly() const;
-        void setDirectoriesOnly(bool value);
+  bool directoriesOnly() const;
+  void setDirectoriesOnly(bool value);
 
-        bool checkReadPermission() const;
-        void setCheckReadPermission(bool value);
+  bool checkReadPermission() const;
+  void setCheckReadPermission(bool value);
 
-        bool checkWritePermission() const;
-        void setCheckWritePermission(bool value);
+  bool checkWritePermission() const;
+  void setCheckWritePermission(bool value);
 
-        TestResult lastTestResult() const;
-        QValidator::State lastValidationState() const;
+  TestResult lastTestResult() const;
+  QValidator::State lastValidationState() const;
 
-        QValidator::State validate(QString &input, int &pos) const override;
+  QValidator::State validate(QString &input, int &pos) const override;
 
-    private:
-        TestResult testPath(const Path &path) const;
+private:
+  TestResult testPath(const Path &path) const;
 
-        bool m_strictMode = false;
-        bool m_existingOnly = false;
-        bool m_filesOnly = false;
-        bool m_directoriesOnly = false;
-        bool m_checkReadPermission = false;
-        bool m_checkWritePermission = false;
+  bool m_strictMode = false;
+  bool m_existingOnly = false;
+  bool m_filesOnly = false;
+  bool m_directoriesOnly = false;
+  bool m_checkReadPermission = false;
+  bool m_checkWritePermission = false;
 
-        mutable TestResult m_lastTestResult = TestResult::DoesNotExist;
-        mutable QValidator::State m_lastValidationState = QValidator::Invalid;
-    };
+  mutable TestResult m_lastTestResult = TestResult::DoesNotExist;
+  mutable QValidator::State m_lastValidationState = QValidator::Invalid;
+};
 
-    class IFileEditorWithCompletion
-    {
-    public:
-        virtual ~IFileEditorWithCompletion() = default;
-        virtual void completeDirectoriesOnly(bool completeDirsOnly) = 0;
-        virtual void setFilenameFilters(const QStringList &filters) = 0;
-        virtual void setBrowseAction(QAction *action) = 0;
-        virtual void setValidator(QValidator *validator) = 0;
-        virtual Path placeholder() const = 0;
-        virtual void setPlaceholder(const Path &val) = 0;
-        virtual QWidget *widget() = 0;
-    };
+class IFileEditorWithCompletion {
+public:
+  virtual ~IFileEditorWithCompletion() = default;
+  virtual void completeDirectoriesOnly(bool completeDirsOnly) = 0;
+  virtual void setFilenameFilters(const QStringList &filters) = 0;
+  virtual void setBrowseAction(QAction *action) = 0;
+  virtual void setValidator(QValidator *validator) = 0;
+  virtual Path placeholder() const = 0;
+  virtual void setPlaceholder(const Path &val) = 0;
+  virtual QWidget *widget() = 0;
+};
 
-    class FileLineEdit final : public QLineEdit, public IFileEditorWithCompletion
-    {
-        Q_OBJECT
-        Q_DISABLE_COPY_MOVE(FileLineEdit)
+class FileLineEdit final : public QLineEdit, public IFileEditorWithCompletion {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(FileLineEdit)
 
-    public:
-        FileLineEdit(QWidget *parent = nullptr);
-        ~FileLineEdit();
+public:
+  FileLineEdit(QWidget *parent = nullptr);
+  ~FileLineEdit();
 
-        void completeDirectoriesOnly(bool completeDirsOnly) override;
-        void setFilenameFilters(const QStringList &filters) override;
-        void setBrowseAction(QAction *action) override;
-        void setValidator(QValidator *validator) override;
-        Path placeholder() const override;
-        void setPlaceholder(const Path &val) override;
-        QWidget *widget() override;
+  void completeDirectoriesOnly(bool completeDirsOnly) override;
+  void setFilenameFilters(const QStringList &filters) override;
+  void setBrowseAction(QAction *action) override;
+  void setValidator(QValidator *validator) override;
+  Path placeholder() const override;
+  void setPlaceholder(const Path &val) override;
+  QWidget *widget() override;
 
-    protected:
-        void keyPressEvent(QKeyEvent *event) override;
-        void contextMenuEvent(QContextMenuEvent *event) override;
+protected:
+  void keyPressEvent(QKeyEvent *event) override;
+  void contextMenuEvent(QContextMenuEvent *event) override;
 
-    private:
-        void showCompletionPopup();
-        void validateText();
+private:
+  void showCompletionPopup();
+  void validateText();
 
-        static QString warningText(FileSystemPathValidator::TestResult result);
+  static QString warningText(FileSystemPathValidator::TestResult result);
 
-        QFileSystemModel *m_completerModel = nullptr;
-        QAction *m_browseAction = nullptr;
-        QAction *m_warningAction = nullptr;
-        QFileIconProvider *m_iconProvider = nullptr;
-        bool m_completeDirectoriesOnly = false;
-        QStringList m_filenameFilters;
-    };
+  QFileSystemModel *m_completerModel = nullptr;
+  QAction *m_browseAction = nullptr;
+  QAction *m_warningAction = nullptr;
+  QFileIconProvider *m_iconProvider = nullptr;
+  bool m_completeDirectoriesOnly = false;
+  QStringList m_filenameFilters;
+};
 
-    class FileComboEdit final : public QComboBox, public IFileEditorWithCompletion
-    {
-        Q_OBJECT
-        Q_DISABLE_COPY_MOVE(FileComboEdit)
+class FileComboEdit final : public QComboBox, public IFileEditorWithCompletion {
+  Q_OBJECT
+  Q_DISABLE_COPY_MOVE(FileComboEdit)
 
-    public:
-        FileComboEdit(QWidget *parent = nullptr);
+public:
+  FileComboEdit(QWidget *parent = nullptr);
 
-        void completeDirectoriesOnly(bool completeDirsOnly) override;
-        void setFilenameFilters(const QStringList &filters) override;
-        void setBrowseAction(QAction *action) override;
-        void setValidator(QValidator *validator) override;
-        Path placeholder() const override;
-        void setPlaceholder(const Path &val) override;
-        QWidget *widget() override;
+  void completeDirectoriesOnly(bool completeDirsOnly) override;
+  void setFilenameFilters(const QStringList &filters) override;
+  void setBrowseAction(QAction *action) override;
+  void setValidator(QValidator *validator) override;
+  Path placeholder() const override;
+  void setPlaceholder(const Path &val) override;
+  QWidget *widget() override;
 
-    protected:
-        QString text() const;
-    };
-}
+protected:
+  QString text() const;
+};
+} // namespace Private
